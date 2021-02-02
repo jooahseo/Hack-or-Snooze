@@ -305,14 +305,17 @@ $(async function() {
     let storyMarkup ="";
     let favorited = 'far';
     let ownStories = '';
-    const favorites = currentUser.favorites;
-    if(favorites.some(val=> val.storyId === story.storyId)){
-      favorited='fas';
+    if(currentUser){
+        const favorites = currentUser.favorites;
+      if(favorites.some(val=> val.storyId === story.storyId)){
+        favorited='fas';
+      }
+      const owns = currentUser.ownStories;
+      if(owns.some(val=> val.storyId === story.storyId)){
+        ownStories = '<span class="garbage"> <i class="far fa-trash-alt"></i></span>';
+      }
     }
-    const owns = currentUser.ownStories;
-    if(owns.some(val=> val.storyId === story.storyId)){
-      ownStories = '<span class="garbage"> <i class="far fa-trash-alt"></i></span>';
-    }
+
       storyMarkup = $(`
       <li id="${story.storyId}">
         ${ownStories}
